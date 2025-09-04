@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+.footer{margin-top:40px;display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
+.bar{height:10px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden}
+.bar>span{display:block;height:100%; width:33%; background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.badge{font-size:.8rem;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="logo" aria-hidden="true"><span>🥒🌭</span></div>
+<div>
+<h1>PickleDog Registry</h1>
+<div class="sub">A highly sophisticated celebration of a very serious entrée (a pickle in a hotdog).</div>
+</div>
+</header>
+
+
+<main class="card" role="region" aria-label="Registry item">
+<div class="row">
+<div class="pic" aria-hidden="true">🥒</div>
+<div>
+<div class="title">The PickleDog</div>
+<div class="desc">One (1) glorious PickleDog. It’s exactly what it sounds like: a crunchy pickle lovingly nestled in a warm hotdog bun. Optional mustard drizzle recommended.</div>
+<div class="meta">
+<span class="chip">Category: Culinary Experiments</span>
+<span class="chip">Color: Dill Green</span>
+<span class="chip">Status: Needed × 1</span>
+</div>
+</div>
+<aside class="ctaBox">
+<div class="price">$7.00</div>
+<label class="qty" for="qty">
+Qty
+<input id="qty" type="number" min="1" max="1" value="1" />
+</label>
+<button class="btn primary" id="purchase">Mark as Purchased</button>
+<button class="btn ghost" id="share">Copy Registry Link</button>
+</aside>
+</div>
+<div style="padding:0 22px 22px">
+<div class="note">Note from hosts: If you can’t find a bun-sized pickle, we accept two smaller pickles aligned end‑to‑end. We’re flexible innovators.</div>
+<div class="footer">
+<div style="flex:1;max-width:520px">
+<div class="bar" aria-label="completion bar" title="0/1 purchased"><span id="progress" style="width:0%"></span></div>
+</div>
+<span class="badge" id="badge">0 of 1 purchased</span>
+</div>
+</div>
+</main>
+</div>
+
+
+<script>
+const purchaseBtn = document.getElementById('purchase');
+const shareBtn = document.getElementById('share');
+const qtyInput = document.getElementById('qty');
+const progress = document.getElementById('progress');
+const badge = document.getElementById('badge');
+
+
+function setPurchased(purchased){
+progress.style.width = purchased ? '100%' : '0%';
+badge.textContent = purchased ? '1 of 1 purchased' : '0 of 1 purchased';
+purchaseBtn.textContent = purchased ? 'Purchased ✓' : 'Mark as Purchased';
+purchaseBtn.disabled = purchased;
+purchaseBtn.style.opacity = purchased ? .7 : 1;
+}
+
+
+purchaseBtn.addEventListener('click', () => {
+setPurchased(true);
+alert('🎉 Thanks for celebrating! This registry is delightfully fake.');
+});
+
+
+shareBtn.addEventListener('click', async () => {
+const url = location.href;
+try {
+await navigator.clipboard.writeText(url);
+shareBtn.textContent = 'Link Copied!';
+setTimeout(()=> shareBtn.textContent = 'Copy Registry Link', 1600);
+} catch {
+prompt('Copy this link:', url);
+}
+});
+
+
+qtyInput.addEventListener('input', () => {
+// Lock quantity to 1, but keep the field for realism
+qtyInput.value = 1;
+});
+</script>
+</body>
+</html>
